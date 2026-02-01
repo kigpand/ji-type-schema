@@ -1,4 +1,4 @@
-import { ISchema } from "../interface/ISchema";
+import { ISchema, SafeParseResult } from "../interface/ISchema";
 
 export class NumberSchema implements ISchema<number> {
   parse(input: unknown): number {
@@ -8,16 +8,19 @@ export class NumberSchema implements ISchema<number> {
     return input;
   }
 
-  safeParse(
-    input: unknown
-  ): { success: false; errors: string[] } | { success: true; data: number } {
+  safeParse(input: unknown): SafeParseResult<number> {
     try {
       const data = this.parse(input);
       return { success: true, data };
     } catch (e) {
       return {
         success: false,
-        errors: [e instanceof Error ? e.message : "Unknown error"],
+        errors: [
+          {
+            path: "number",
+            message: e instanceof Error ? e.message : "Unknown error",
+          },
+        ],
       };
     }
   }
