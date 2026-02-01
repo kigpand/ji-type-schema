@@ -1,5 +1,5 @@
 export type ValidationError = {
-  path: string;
+  path?: string;
   message: string;
 };
 
@@ -9,7 +9,5 @@ export type SafeParseResult<T> =
 
 export interface ISchema<T> {
   parse(input: unknown): T;
-  safeParse(
-    input: unknown
-  ): { success: true; data: T } | { success: false; errors: ValidationError[] };
+  safeParse(input: unknown): SafeParseResult<T>;
 }
