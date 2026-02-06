@@ -1,5 +1,7 @@
+export type Path = (string | number)[];
+
 export type ValidationError = {
-  path?: string;
+  path?: Path;
   message: string;
 };
 
@@ -11,3 +13,7 @@ export interface ISchema<T> {
   parse(input: unknown): T;
   safeParse(input: unknown): SafeParseResult<T>;
 }
+
+export type Infer<T extends ISchema<any>> = T extends ISchema<infer U>
+  ? U
+  : never;
