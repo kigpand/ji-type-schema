@@ -1,8 +1,12 @@
 import { BaseSchema } from "../BaseSchema";
 import { Infer, ISchema, ValidationError } from "../interface/ISchema";
 
+/**
+ * Record<string, ISchema<unknown>: string의 키값을 가지는 ISchema interface를 가지는 value
+ * TShape: Record를 확장하는 Generic
+ */
 export class ObjectSchema<
-  TShape extends Record<string, ISchema<any>>
+  TShape extends Record<string, ISchema<unknown>>
 > extends BaseSchema<{ [K in keyof TShape]: Infer<TShape[K]> }> {
   constructor(private readonly shape: TShape) {
     super();
