@@ -12,5 +12,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["index.ts", "BaseSchema.ts", "schema/**/*.ts", "interface/**/*.ts", "handler/**/*.ts"]
+  "include": ["index.ts", "BaseSchema.ts", "errors.ts", "schema/**/*.ts", "interface/**/*.ts", "handler/**/*.ts"]
 }

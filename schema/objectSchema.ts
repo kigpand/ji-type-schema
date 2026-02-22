@@ -14,7 +14,7 @@ export class ObjectSchema<
 
   parse(input: unknown) {
     if (typeof input !== "object" || input === null) {
-      throw new Error("Expected object");
+      throw this.makeError("Expected object", [], "invalid_type");
     }
 
     const result: any = {};
@@ -29,8 +29,9 @@ export class ObjectSchema<
       if (!parsed.success) {
         parsed.errors.forEach((err) => {
           errors.push({
-            path: [key, ...(err.path ?? [])],
+            path: [key, ...err.path],
             message: err.message,
+            code: err.code,
           });
         });
       } else {

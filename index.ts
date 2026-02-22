@@ -5,3 +5,4 @@ export { objectSchema } from "./handler/object";
 
 export type { Infer } from "./interface/ISchema";
 export type { ValidationError } from "./interface/ISchema";
+export { flattenErrors, formatErrors } from "./errors";
