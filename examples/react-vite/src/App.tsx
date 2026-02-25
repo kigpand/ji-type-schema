@@ -1,5 +1,6 @@
 import "./App.css";
 import {
+  arraySchema,
   booleanSchema,
   numberSchema,
   objectSchema,
@@ -12,12 +13,15 @@ const UserSchema = objectSchema({
   active: booleanSchema(),
 });
 
+const TagsSchema = arraySchema(stringSchema().optional());
+
 const validUser = { name: "kim", age: 28, active: true };
 const invalidUser = { name: "kim", age: "28", active: "yes" };
 
 function App() {
   const ok = UserSchema.safeParse(validUser);
   const bad = UserSchema.safeParse(invalidUser);
+  const tags = TagsSchema.safeParse(["dev", undefined, "ts"]);
 
   return (
     <main className="app">
@@ -29,6 +33,10 @@ function App() {
       <section>
         <h2>Invalid</h2>
         <pre>{JSON.stringify(bad, null, 2)}</pre>
+      </section>
+      <section>
+        <h2>Array + optional</h2>
+        <pre>{JSON.stringify(tags, null, 2)}</pre>
       </section>
     </main>
   );

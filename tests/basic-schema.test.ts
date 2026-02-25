@@ -7,6 +7,7 @@ import {
   numberSchema,
   objectSchema,
   stringSchema,
+  arraySchema,
 } from "../index";
 
 describe("basic schemas", () => {
@@ -129,5 +130,17 @@ describe("basic schemas", () => {
       expect(flattened.fieldErrors["name"].length).toBe(1);
       expect(flattened.fieldErrors["age"].length).toBe(1);
     }
+  });
+
+  it("arraySchema validates items", () => {
+    const schema = arraySchema(numberSchema());
+    const result = schema.safeParse([1, 2, "3"]);
+    expect(result.success).toBe(false);
+  });
+
+  it("optional works on array items", () => {
+    const schema = arraySchema(stringSchema().optional());
+    const result = schema.safeParse(["a", undefined, "b"]);
+    expect(result.success).toBe(true);
   });
 });
