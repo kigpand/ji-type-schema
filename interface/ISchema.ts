@@ -1,8 +1,9 @@
 export type Path = (string | number)[];
 
 export type ValidationError = {
-  path?: Path;
+  path: Path;
   message: string;
+  code: string;
 };
 
 export type SafeParseResult<T> =
@@ -12,6 +13,11 @@ export type SafeParseResult<T> =
 export interface ISchema<T> {
   parse(input: unknown): T;
   safeParse(input: unknown): SafeParseResult<T>;
+  is(input: unknown): input is T;
+  assert(input: unknown): asserts input is T;
+  optional(): ISchema<T | undefined>;
+  nullable(): ISchema<T | null>;
+  refine(check: (value: T) => boolean, message?: string, code?: string): ISchema<T>;
 }
 
 /**

@@ -1,6 +1,6 @@
 {
   "name": "ji-type-schema",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -19,7 +19,12 @@
   "scripts": {
     "build": "tsup",
     "prepublishOnly": "pnpm build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "smoke": "pnpm build && node examples/smoke.mjs",
+    "release:patch": "npm version patch && pnpm build && npm publish --access public",
+    "release:minor": "npm version minor && pnpm build && npm publish --access public",
+    "release:major": "npm version major && pnpm build && npm publish --access public",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "sideEffects": false,
   "keywords": [],
@@ -28,6 +33,7 @@
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
     "tsup": "^8.0.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }
