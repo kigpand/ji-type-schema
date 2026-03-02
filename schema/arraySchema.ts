@@ -1,11 +1,14 @@
 import { BaseSchema } from "../BaseSchema";
 import { ISchema, ValidationError } from "../interface/ISchema";
 
+// Array 스키마: 각 아이템을 아이템 스키마로 검증.
 export class ArraySchema<T> extends BaseSchema<T[]> {
+  // 각 원소를 아이템 스키마로 파싱.
   constructor(private readonly item: ISchema<T>) {
     super();
   }
 
+  // 배열을 파싱하고 인덱스 기반 에러를 수집.
   parse(input: unknown): T[] {
     if (!Array.isArray(input)) {
       throw this.makeError("Expected array", [], "invalid_type");

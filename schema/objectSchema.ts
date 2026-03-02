@@ -8,10 +8,12 @@ import { Infer, ISchema, ValidationError } from "../interface/ISchema";
 export class ObjectSchema<
   TShape extends Record<string, ISchema<unknown>>
 > extends BaseSchema<{ [K in keyof TShape]: Infer<TShape[K]> }> {
+  // Shape 기반 오브젝트 스키마: 필드별 스키마로 검증.
   constructor(private readonly shape: TShape) {
     super();
   }
 
+  // 필드를 파싱하고 하위 에러를 집계.
   parse(input: unknown) {
     if (typeof input !== "object" || input === null) {
       throw this.makeError("Expected object", [], "invalid_type");
